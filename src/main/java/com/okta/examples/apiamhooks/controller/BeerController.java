@@ -17,12 +17,17 @@ class BeerController {
         this.repository = repository;
     }
 
-    @GetMapping("/good-beers")
+    @GetMapping("/api/good-beers")
     public Collection<Beer> goodBeers() {
 
         return repository.findAll().stream()
             .filter(this::isGreat)
             .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/beers")
+    public Collection<Beer> beers() {
+        return repository.findAll();
     }
 
     private boolean isGreat(Beer beer) {

@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 //@RepositoryRestResource
 public interface BeerRepository extends JpaRepository<Beer, Long> {
+
+    Beer findByName(String name);
 }
