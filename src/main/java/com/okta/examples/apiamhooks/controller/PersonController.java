@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class PersonController {
 
     BeerRepository beerRepository;
@@ -25,7 +27,7 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @PostMapping("/api/add-beer")
+    @PostMapping("/add-beer")
     @ResponseBody List<Beer> addBeer(@RequestBody Beer beer, @AuthenticationPrincipal Principal principal) {
 
         Beer b = findOrCreateBeer(beer);
@@ -40,7 +42,7 @@ public class PersonController {
         return p.getFavoriteBeers();
     }
 
-    @GetMapping("/api/me-beers")
+    @GetMapping("/me-beers")
     @ResponseBody List<Beer> listBeers(@AuthenticationPrincipal Principal principal) {
         return findOrCreatePerson(principal).getFavoriteBeers();
     }
