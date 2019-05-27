@@ -1,0 +1,19 @@
+{
+    "status": "ACTIVE",
+    "name": "APIAM Token Hook with DB lookup",
+    "type": "com.okta.oauth2.tokens.transform",
+    "version": "1.0.0",
+    "channel": {
+        "type": "HTTP",
+        "version": "1.0.0",
+        "config": {
+            "uri": "{{ngrok-url}}/api/hooks/apiam",
+            "headers": [{"key": "org", "value": "{{okta-org}}"}],
+            "authScheme": {
+                "type": "HEADER",
+                "key": "Authorization",
+                "value": "Basic {{basic-auth}}"
+            }
+        }
+    }
+}
