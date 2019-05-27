@@ -42,6 +42,7 @@ public class WebSecurityConfiguration {
         public void configure(HttpSecurity http) throws Exception {
             http
                 .antMatcher("/api/hooks/**")
+                .csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
