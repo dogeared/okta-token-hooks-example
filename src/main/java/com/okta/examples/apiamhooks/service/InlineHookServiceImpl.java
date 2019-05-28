@@ -2,7 +2,7 @@ package com.okta.examples.apiamhooks.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.okta.examples.apiamhooks.model.CreateHookRequest;
+import com.okta.examples.apiamhooks.model.hooks.CreateHookRequest;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

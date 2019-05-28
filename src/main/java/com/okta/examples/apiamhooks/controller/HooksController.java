@@ -1,12 +1,12 @@
 package com.okta.examples.apiamhooks.controller;
 
 import com.okta.examples.apiamhooks.model.Beer;
-import com.okta.examples.apiamhooks.model.CreateHookRequest;
-import com.okta.examples.apiamhooks.model.IDTokenPatchResponse;
+import com.okta.examples.apiamhooks.model.hooks.CreateHookRequest;
+import com.okta.examples.apiamhooks.model.hooks.IDTokenPatchResponse;
 import com.okta.examples.apiamhooks.model.Person;
-import com.okta.examples.apiamhooks.model.TokenHookRequest;
-import com.okta.examples.apiamhooks.model.TokenHookResponse;
-import com.okta.examples.apiamhooks.model.TokenPatchResponse;
+import com.okta.examples.apiamhooks.model.hooks.TokenHookRequest;
+import com.okta.examples.apiamhooks.model.hooks.TokenHookResponse;
+import com.okta.examples.apiamhooks.model.hooks.TokenPatchResponse;
 import com.okta.examples.apiamhooks.repository.PersonRepository;
 import com.okta.examples.apiamhooks.service.InlineHookService;
 import org.springframework.web.bind.annotation.PostMapping;

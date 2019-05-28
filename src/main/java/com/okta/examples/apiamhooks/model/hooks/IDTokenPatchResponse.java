@@ -1,4 +1,4 @@
-package com.okta.examples.apiamhooks.model;
+package com.okta.examples.apiamhooks.model.hooks;
 
 import lombok.Data;
 
