@@ -59,7 +59,7 @@ public class WebSecurityConfiguration {
             http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login();
+                .oauth2ResourceServer().jwt();
         }
     }
 }
