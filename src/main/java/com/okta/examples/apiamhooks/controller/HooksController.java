@@ -34,13 +34,15 @@ public class HooksController {
     @PostMapping("/apiam")
     public TokenHookResponse apiam(@RequestBody TokenHookRequest request) {
         String login = request.getData().getContext().getUser().getProfile().getLogin();
-        Person p = personRepository.findByEmail(login);
+        Person person = personRepository.findByEmail(login);
 
         TokenHookResponse response = new TokenHookResponse();
-        if (p != null) {
+        if (person != null) {
             IDTokenPatchResponse idTokenPatchResponse = new IDTokenPatchResponse();
             idTokenPatchResponse.getValue().add(
-                new TokenPatchResponse.Value("add", "/claims/beers", transformBeers(p.getFavoriteBeers()))
+                new TokenPatchResponse.Value(
+                    "add", "/claims/beers", transformBeers(person.getFavoriteBeers())
+                )
             );
             response.getCommands().add(idTokenPatchResponse);
         }

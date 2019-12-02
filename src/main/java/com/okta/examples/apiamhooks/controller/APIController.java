@@ -13,29 +13,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class PersonController {
+public class APIController {
 
     BeerRepository beerRepository;
     PersonRepository personRepository;
 
-    public PersonController(BeerRepository beerRepository, PersonRepository personRepository) {
+    public APIController(BeerRepository beerRepository, PersonRepository personRepository) {
         this.beerRepository = beerRepository;
         this.personRepository = personRepository;
+    }
+
+    @GetMapping("/good-beers")
+    public Collection<Beer> goodBeers() {
+
+        return beerRepository.findAll().stream()
+            .filter(this::isGreat)
+            .collect(Collectors.toList());
+    }
+
+    @GetMapping("/beers")
+    public Collection<Beer> beers() {
+        return beerRepository.findAll();
+    }
+
+    private boolean isGreat(Beer beer) {
+        return !beer.getName().equals("Budweiser") &&
+            !beer.getName().equals("Coors Light") &&
+            !beer.getName().equals("PBR");
     }
 
     @PostMapping("/add-beer")
     @ResponseBody List<Beer> addBeer(@RequestBody Beer beer, @AuthenticationPrincipal Principal principal) {
 
-        Beer b = findOrCreateBeer(beer);
+        beer = findOrCreateBeer(beer);
         Person p = findOrCreatePerson(principal);
 
         // no need to add if it's already there
-        if (!p.getFavoriteBeers().contains(b)) {
-            p.getFavoriteBeers().add(b);
+        if (!p.getFavoriteBeers().contains(beer)) {
+            p.getFavoriteBeers().add(beer);
             personRepository.save(p);
         }
 
@@ -57,13 +78,13 @@ public class PersonController {
         return p;
     }
 
-    private Beer findOrCreateBeer(Beer beer) {
-        Beer b = beerRepository.findByName(beer.getName());
-        if (b == null) {
-            b = new Beer();
-            b.setName(beer.getName());
-            beerRepository.save(b);
+    private Beer findOrCreateBeer(Beer beerToFind) {
+        Beer beer = beerRepository.findByName(beerToFind.getName());
+        if (beer == null) {
+            beer = new Beer();
+            beer.setName(beerToFind.getName());
+            beerRepository.save(beer);
         }
-        return b;
+        return beer;
     }
 }
